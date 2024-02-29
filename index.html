@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js"></script>
+</head>
+<body>
+
+    <input type="file" id="file-upload" name="filename" accept="json">
+    <button id="save-button">Save Sheets</button>
+
+    <div id="character-sheet-container"></div>
+
+    <form id="sheet-0" onsubmit="">
+        <input type="submit">
+        <article class="character-sheet">
+            <input type="text" id="character-name-0" class="character-name"/>
+            <input type="text" class="ac"/>
+            <input type="text" class="hp"/>
+            <input type="text" class="hp-max"/>
+            <input type="text" class="occupation"/>
+            <input type="checkbox" class="alignment law"/>
+            <input type="checkbox" class="alignment neutral"/>
+            <input type="checkbox" class="alignment chaos"/>
+
+            <section class="ability-scores">
+                <input type="text" class="strength-a"/>
+                <input type="text" disabled class="strength-m"/>
+
+                <input type="text" class="agility-a"/>
+                <input type="text" disabled class="agility-m"/>
+
+                <input type="text" class="stamina-a"/>
+                <input type="text" disabled class="stamina-m"/>
+                
+                <input type="text" class="personality-a"/>
+                <input type="text" disabled class="personality-m"/>
+                
+                <input type="text" class="intelligence-a"/>
+                <input type="text" disabled class="intelligence-m"/>
+                
+                <input type="text" class="luck-a"/>
+                <input type="text" class="luck-m"/>
+            </section>
+
+            <section class="saves">
+                <input type="text" class="reflex" value="Hello"/>
+                <input type="text" class="fortitude"/>
+                <input type="text" class="will"/>
+            </section>
+
+            <input type="text" class="speed"/>
+            <input type="text" class="init"/>
+
+            <section class="weapons">
+                <input type="text" class="weapon-1"/>
+                <input type="text" class="weapon-2"/>
+                <input type="text" class="weapon-3"/>
+            </section>
+
+            <section class="text-boxes">
+                <textarea class="notes"></textarea>
+                <textarea class="equipment"></textarea>
+                <input type="text" class="xp"/>
+            </section>
+        </article>
+    </form>
+</body>
+</html>

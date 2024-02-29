@@ -1,0 +1,228 @@
+.character-sheet {
+    background: grey;
+    height: 345px;
+    width: 450px;
+    background-image: url('./blank_dcc_sheet.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.character-sheet input, .character-sheet textarea {
+    background: transparent;
+    border: none;
+    position: absolute;
+    /* background-color: red; */
+}
+
+#character-sheet-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 5px;
+    justify-content: center;
+}
+
+.character-name {
+    top: 10px;
+    left: 104px;
+    font-size: 20px;
+    width: 336px;
+}
+
+.ac {
+    top: 54px;
+    left: 27px;
+    height: 33px;
+    width: 22px;
+    text-align: center;
+}
+
+.hp {
+    top: 57px;
+    left: 99px;
+    height: 33px;
+    width: 22px;
+    text-align: center;
+}
+
+.hp-max {
+    top: 76px;
+    left: 127px;
+    height: 33px;
+    width: 22px;
+    text-align: center;
+}
+
+.occupation {
+    top: 46px;
+    left: 263px;
+    height: 21px;
+}
+
+.alignment {
+    top: 80px;
+}
+
+.law {
+    left: 268px;
+}
+
+.neutral {
+    left: 335px;
+}
+
+.chaos {
+    left: 402px;
+}
+
+/* Ability Scores */
+.ability-scores * {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.strength-a {
+    top: 136px;
+    left: 99px;
+}
+
+.agility-a {
+    top: 159px;
+    left: 99px;
+}
+
+.stamina-a {
+    top: 182px;
+    left: 99px;
+}
+
+.personality-a {
+    top: 205px;
+    left: 99px;
+}
+
+.intelligence-a {
+    top: 228px;
+    left: 99px;
+}
+
+.luck-a {
+    top: 251px;
+    left: 99px;
+}
+
+/* Modifiers */
+
+.strength-m {
+    top: 136px;
+    left: 124px;
+}
+
+.agility-m {
+    top: 159px;
+    left: 124px;
+}
+
+.stamina-m {
+    top: 182px;
+    left: 124px;
+}
+
+.personality-m {
+    top: 205px;
+    left: 124px;
+}
+
+.intelligence-m {
+    top: 228px;
+    left: 124px;
+}
+
+.luck-m {
+    top: 251px;
+    left: 124px;
+}
+
+/* Saves */
+
+.saves *, .speed, .init {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.reflex {
+    top: 134px;
+    left: 238px;
+}
+
+.fortitude {
+    top: 157px;
+    left: 238px;
+}
+
+.will {
+    top: 180px;
+    left: 238px;
+}
+
+.speed {
+    top: 134px;
+    left: 333px;
+}
+
+.init {
+    top: 134px;
+    left: 400px;
+}
+
+/* Weapons */
+
+.weapons * {
+    left: 167px;
+    width: 124px;
+    font-size: 9px;
+}
+
+.weapon-1 {
+    top: 228px;
+    color: white;
+}
+
+.weapon-2 {
+    top: 246px;
+}
+
+.weapon-3 {
+    top: 265px;
+}
+
+/* Notes */
+
+.notes {
+    resize: none;
+    top: 283px;
+    left: 9px;
+    width: 362px;
+    height: 46px; 
+    font-size: 9px;
+}
+
+.equipment {
+    resize: none;
+    top: 184px;
+    left: 296px;
+    width: 138px;
+    height: 94px;
+    font-size: 9px;
+}
+
+.xp {
+    top: 298px;
+    left: 380px;
+    width: 48px;
+    height: 30px;
+    text-align: center;
+}
