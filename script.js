@@ -238,7 +238,7 @@ const handleFileUpload = (e) => {
 }
 
 const updateScreen = (characterData) => {
-    const maxCharacters = 4
+    const maxCharacters = 6
     let generatedHTML = "";
     for (let i = 0; i < characterData.length; i++) {
         if (i === maxCharacters) {
