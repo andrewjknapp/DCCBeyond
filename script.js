@@ -335,19 +335,23 @@ function handleSheetSubmit(e) {
 
     const data = new FormData(e.target);
 
-    const formProps = Object.fromEntries(data);
+    const characterFormData = Object.fromEntries(data);
 
     const formattedData = {
         characters: []
     }
 
     for (let i = 0; i < numCharacters; i++) {
-        formattedData.characters.push(formatCharacterData(formProps, 'form', i))
+        if (characterFormData[`${i}_name`] == undefined) {
+            console.log('Not there')
+            continue
+        }
+        formattedData.characters.push(formatCharacterData(characterFormData, 'form', i))
     }
 
     const jsonDataToSave = JSON.stringify(formattedData)
 
-    downloadObjectAsJson(jsonDataToSave, formProps.filename || 'dcc_character_sheet')
+    downloadObjectAsJson(jsonDataToSave, characterFormData.filename || 'dcc_character_sheet')
 }
 
 function downloadObjectAsJson(exportObj, exportName){
