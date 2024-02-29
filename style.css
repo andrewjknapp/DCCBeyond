@@ -35,6 +35,13 @@ input[type='file'] {
     color: transparent;
 }
 
+.character-delete-button {
+    top: 4px;
+    left: 429px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 .character-name {
     top: 10px;
     left: 104px;

@@ -8,6 +8,8 @@ const characterTemplate = (characterObject, id) => {
     return `
         <article id="${id}" class="character-sheet">
             <input type="text" name="${id}_name" class="character-name" value="${characterObject.details.name}"/>
+            <input type="button" value="X" class="character-delete-button" onclick="deleteCharacter(${id})"/>
+
             <input type="text" name="${id}_ac" class="ac" value="${characterObject.other.ac}"/>
             <input type="text" name="${id}_hp" class="hp" value="${characterObject.other.hp}"/>
             <input type="text" name="${id}_hp_max" class="hp-max" value="${characterObject.other.maxHp}"/>
@@ -58,6 +60,15 @@ const characterTemplate = (characterObject, id) => {
             </section>
         </article>
     `
+}
+
+function deleteCharacter(id) {
+
+    if (!confirm("Delete character?")) return
+
+    const sheetToDelete = document.getElementById(id)
+
+    sheetToDelete.remove()
 }
 
 const inputSchema =  {
@@ -290,19 +301,15 @@ const handleFileUpload = (e) => {
 }
 
 const updateScreen = (characterData) => {
-    const maxCharacters = 4
     let generatedHTML = "";
     numCharacters = 0
     for (let i = 0; i < characterData.length; i++) {
-        if (i === maxCharacters) {
-            break;
-        }
         numCharacters++
         generatedHTML += characterTemplate(characterData[i], i)
 
     }
 
-    CHARACTER_SHEET_CONTAINER.innerHTML = generatedHTML
+    CHARACTER_SHEET_CONTAINER.innerHTML += generatedHTML
     isFileLoaded = true
 }
 
@@ -321,7 +328,7 @@ const importJSONData = (data) => {
 
 function handleSheetSubmit(e) {
     e.preventDefault()
-    if (!isFileLoaded) {
+    if (!CHARACTER_SHEET_CONTAINER.innerHTML) {
         alert("No sheets to save")
         return
     }
@@ -363,6 +370,11 @@ const handleClearSheets = () => {
     isFileLoaded = false;
 }
 
+const addCharacter = () => {
+    CHARACTER_SHEET_CONTAINER.innerHTML += characterTemplate(internalSchema, numCharacters)
+    numCharacters++
+}
+
 function main() {
     FILE_UPLOAD = document.getElementById("file-upload")
     FILE_UPLOAD.addEventListener("change", handleFileUpload, true);
@@ -374,6 +386,9 @@ function main() {
 
     let clearButton = document.getElementById("clear-sheets-button")
     clearButton.addEventListener("click", handleClearSheets, true);
+
+    let addCharacterButton = document.getElementById("add-character-button")
+    addCharacterButton.addEventListener("click", addCharacter, true);
 
 }
 
