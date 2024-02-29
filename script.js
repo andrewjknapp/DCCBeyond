@@ -6,7 +6,7 @@ let isFileLoaded = false;
 
 const timeoutTracker = {}
 
-const diceOptions = [ "d3", "d4", "d5", "d6", "d7", "d8", "d10", "d%", "d12", "d14", "d16", "d20", "d24", "d30" ]
+const diceOptions = [ "d3", "d4", "d5", "d6", "d7", "d8", "d10", "d100", "d12", "d14", "d16", "d20", "d24", "d30" ]
 
 const characterTemplate = (characterObject, id) => {
     return `
@@ -81,8 +81,6 @@ function handleDieRoll(die) {
     }
 
     let maxNum = die.slice(1);
-
-    if (maxNum === "%") maxNum = "100";
 
     maxNum = Number(maxNum);
 
