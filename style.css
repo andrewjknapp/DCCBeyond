@@ -1,3 +1,10 @@
+body {
+    background-image: url('./images/castle.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
 .character-sheet {
     background: grey;
     height: 345px;
