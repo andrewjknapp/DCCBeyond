@@ -68,7 +68,7 @@ const characterTemplate = (characterObject, id) => {
 
 const dieTemplate = (die) => {
     return `
-        <div id="${die}" onclick="handleDieRoll('${die}')" tabindex="-1" style="background: url(./images/${die}.png)">
+        <div id="${die}" onclick="handleDieRoll('${die}')" style="background: url(./images/${die}.png)">
             <p id="${die}_result" class="die_result"></p>
         </div>
     `
@@ -85,6 +85,13 @@ function handleDieRoll(die) {
     maxNum = Number(maxNum);
 
     const rollResult = Math.floor(Math.random() * maxNum) + 1
+
+    const element = document.getElementById(`${die}`)
+
+    element.classList.remove('dice-roll'); // reset animation
+    void element.offsetWidth; // trigger reflow
+    element.classList.add('dice-roll'); // start animation
+
 
     timeoutTracker[die] = setTimeout(() => {
         document.getElementById(`${die}_result`).innerHTML = rollResult

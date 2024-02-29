@@ -290,6 +290,7 @@ input[type='file'] {
     background-repeat: no-repeat !important;
     cursor: pointer;
     position: relative;
+    user-select: none;
 } 
 
 .dice div:hover {
@@ -298,7 +299,7 @@ input[type='file'] {
     margin: -5px -12px;
 }
 
-.dice div:focus {
+.dice-roll {
     animation-name: roll;
     animation-delay: 0.25s;
     animation-duration: 0.75s;
