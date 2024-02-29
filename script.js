@@ -69,7 +69,7 @@ const characterTemplate = (characterObject, id) => {
 const dieTemplate = (die) => {
     return `
         <div id="${die}" onclick="handleDieRoll('${die}')" style="background: url(./images/${die}.png)">
-            <p id="${die}_result" class="die_result"></p>
+            <p id="${die}_result" class="die_result ${die === "d8" ? "dark_die_text" : ''}"></p>
         </div>
     `
 }
@@ -365,6 +365,7 @@ const importJSONData = (data) => {
 
 function handleSheetSubmit(e) {
     e.preventDefault()
+    let maxSaveCharacters = Infinity
     if (!CHARACTER_SHEET_CONTAINER.innerHTML) {
         alert("No sheets to save")
         return
@@ -378,12 +379,22 @@ function handleSheetSubmit(e) {
         characters: []
     }
 
+    if (numCharacters > 20) {
+        if (!confirm("There are more than 20 character sheets, do you want to save all of them?")) {
+            maxSaveCharacters = Number(prompt("Enter the number of sheets to save starting at the beginning"))
+        }
+    }
+
+
+
     for (let i = 0; i < numCharacters; i++) {
         if (characterFormData[`${i}_name`] == undefined) {
             console.log('Not there')
             continue
         }
         formattedData.characters.push(formatCharacterData(characterFormData, 'form', i))
+
+        if (formattedData.characters.length === maxSaveCharacters) break
     }
 
     const jsonDataToSave = JSON.stringify(formattedData)

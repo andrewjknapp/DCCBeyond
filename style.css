@@ -293,6 +293,10 @@ input[type='file'] {
     user-select: none;
 } 
 
+.dice p {
+    color: white;
+}
+
 .dice div:hover {
     transition: all 0.5s;
     padding: 5px 12px 5px 12px;
@@ -314,12 +318,12 @@ input[type='file'] {
     text-align: center;
 }
 
+.dark_die_text {
+    color: black !important;
+}
+
 @keyframes roll {
     100% {
       transform: rotate(360deg);
     }
   }
-
-#d3 {
-    background: url(./images/d3.png);
-}
