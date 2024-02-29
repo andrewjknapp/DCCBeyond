@@ -28,6 +28,11 @@ body {
     gap: 3px;
     padding: 5px;
     justify-content: center;
+    margin: 15px 0px;
+}
+
+input[type='file'] {
+    color: transparent;
 }
 
 .character-name {
@@ -232,4 +237,28 @@ body {
     width: 48px;
     height: 30px;
     text-align: center;
+}
+
+.file-controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Instructions */
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #6665;
+    border-radius: 8px;
+}
+
+.instructions h1 {
+    text-align: center;
+}
+
+.instructions p {
+    max-width: 700px;
 }

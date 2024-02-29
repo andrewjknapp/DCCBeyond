@@ -7,54 +7,54 @@ let isFileLoaded = false;
 const characterTemplate = (characterObject, id) => {
     return `
         <article id="${id}" class="character-sheet">
-            <input type="text" class="character-name" value="${characterObject.details.name}"/>
-            <input type="text" class="ac" value="${characterObject.other.ac}"/>
-            <input type="text" class="hp" value="${characterObject.other.hp}"/>
-            <input type="text" class="hp-max" value="${characterObject.other.maxHp}"/>
-            <input type="text" class="occupation" value="${characterObject.details.occupation}"/>
-            <input type="checkbox" class="alignment law" ${characterObject.details.alignment === 'L' ? 'checked' : ''}/>
-            <input type="checkbox" class="alignment neutral" ${characterObject.details.alignment === 'N' ? 'checked' : ''}/>
-            <input type="checkbox" class="alignment chaos" ${characterObject.details.alignment === 'C' ? 'checked' : ''}/>
+            <input type="text" name="${id}_name" class="character-name" value="${characterObject.details.name}"/>
+            <input type="text" name="${id}_ac" class="ac" value="${characterObject.other.ac}"/>
+            <input type="text" name="${id}_hp" class="hp" value="${characterObject.other.hp}"/>
+            <input type="text" name="${id}_hp_max" class="hp-max" value="${characterObject.other.maxHp}"/>
+            <input type="text" name="${id}_occupation" class="occupation" value="${characterObject.details.occupation}"/>
+            <input type="checkbox" name="${id}_law" class="alignment law" ${characterObject.details.alignment === 'L' ? 'checked' : ''}/>
+            <input type="checkbox" name="${id}_neutral" class="alignment neutral" ${characterObject.details.alignment === 'N' ? 'checked' : ''}/>
+            <input type="checkbox" name="${id}_chaos" class="alignment chaos" ${characterObject.details.alignment === 'C' ? 'checked' : ''}/>
 
             <section class="ability-scores">
-                <input type="text" class="strength-a" value="${characterObject.abilities.strength}"/>
-                <input type="text" disabled class="strength-m" value="${characterObject.modifiers.strength}"/>
+                <input type="text" name="${id}_ability_strength" class="strength-a" value="${characterObject.abilities.strength}"/>
+                <input type="text" name="${id}_modifier_strength" class="strength-m" value="${characterObject.modifiers.strength}"/>
 
-                <input type="text" class="agility-a" value="${characterObject.abilities.agility}"/>
-                <input type="text" disabled class="agility-m" value="${characterObject.modifiers.agility}"/>
+                <input type="text" name="${id}_ability_agility" class="agility-a" value="${characterObject.abilities.agility}"/>
+                <input type="text" name="${id}_modifier_agility" class="agility-m" value="${characterObject.modifiers.agility}"/>
 
-                <input type="text" class="stamina-a" value="${characterObject.abilities.stamina}"/>
-                <input type="text" disabled class="stamina-m" value="${characterObject.modifiers.stamina}"/>
+                <input type="text" name="${id}_ability_stamina" class="stamina-a" value="${characterObject.abilities.stamina}"/>
+                <input type="text" name="${id}_modifier_stamina" class="stamina-m" value="${characterObject.modifiers.stamina}"/>
                 
-                <input type="text" class="personality-a" value="${characterObject.abilities.personality}"/>
-                <input type="text" disabled class="personality-m" value="${characterObject.modifiers.personality}"/>
+                <input type="text" name="${id}_ability_personality" class="personality-a" value="${characterObject.abilities.personality}"/>
+                <input type="text" name="${id}_modifier_personality" class="personality-m" value="${characterObject.modifiers.personality}"/>
                 
-                <input type="text" class="intelligence-a" value="${characterObject.abilities.intelligence}"/>
-                <input type="text" disabled class="intelligence-m" value="${characterObject.modifiers.intelligence}"/>
+                <input type="text" name="${id}_ability_intelligence" class="intelligence-a" value="${characterObject.abilities.intelligence}"/>
+                <input type="text" name="${id}_modifier_intelligence" class="intelligence-m" value="${characterObject.modifiers.intelligence}"/>
                 
-                <input type="text" class="luck-a" value="${characterObject.abilities.luck}"/>
-                <input type="text" class="luck-m" value="${characterObject.modifiers.luck}"/>
+                <input type="text" name="${id}_ability_luck" class="luck-a" value="${characterObject.abilities.luck}"/>
+                <input type="text" name="${id}_modifier_luck" class="luck-m" value="${characterObject.modifiers.luck}"/>
             </section>
 
             <section class="saves">
-                <input type="text" class="reflex" value="${characterObject.saves.reflex}"/>
-                <input type="text" class="fortitude" value="${characterObject.saves.fortitude}"/>
-                <input type="text" class="will" value="${characterObject.saves.will}"/>
+                <input type="text" name="${id}_reflex" class="reflex" value="${characterObject.saves.reflex}"/>
+                <input type="text" name="${id}_fortitude" class="fortitude" value="${characterObject.saves.fortitude}"/>
+                <input type="text" name="${id}_will" class="will" value="${characterObject.saves.will}"/>
             </section>
 
-            <input type="text" class="speed" value="${characterObject.other.speed}"/>
-            <input type="text" class="init" value="${characterObject.other.init}"/>
+            <input type="text" name="${id}_speed" class="speed" value="${characterObject.other.speed}"/>
+            <input type="text" name="${id}_init" class="init" value="${characterObject.other.init}"/>
 
             <section class="weapons">
-                <input type="text" class="weapon-1" value="${characterObject.weapons[0] || ''}"/>
-                <input type="text" class="weapon-2" value="${characterObject.weapons[1] || ''}"/>
-                <input type="text" class="weapon-3" value="${characterObject.weapons[2] || ''}"/>
+                <input type="text" name="${id}_weapon_1" class="weapon-1" value="${characterObject.weapons[0] || ''}"/>
+                <input type="text" name="${id}_weapon_2" class="weapon-2" value="${characterObject.weapons[1] || ''}"/>
+                <input type="text" name="${id}_weapon_3" class="weapon-3" value="${characterObject.weapons[2] || ''}"/>
             </section>
 
             <section class="text-boxes">
-                <textarea class="notes">${characterObject.notes}</textarea>
-                <textarea class="equipment">${characterObject.equipment}</textarea>
-                <input type="text" class="xp" value="${characterObject.xp}"/>
+                <textarea name="${id}_notes" class="notes">${characterObject.notes}</textarea>
+                <textarea name="${id}_equipment" class="equipment">${characterObject.equipment}</textarea>
+                <input type="text" name="${id}_xp" class="xp" value="${characterObject.xp}"/>
             </section>
         </article>
     `
@@ -154,16 +154,68 @@ const negPos = (num) => {
     }
 } 
 
-const formatCharacterData = (characterObject) => {
+const formatCharacterData = (characterObject, source, prefix) => {
 
     const co = {...characterObject}
+    // new character
+    const nc = {...internalSchema}
+
+    if (source === 'form') {
+        nc.details =  {
+            name: co[`${prefix}_name`],
+            occupation: co[`${prefix}_occupation`],
+            alignment: '', // L, N, C
+        }
+    
+        nc.abilities = {
+            strength: co[`${prefix}_ability_strength`],
+            agility: co[`${prefix}_ability_agility`],
+            stamina: co[`${prefix}_ability_stamina`],
+            personality: co[`${prefix}_ability_personality`],
+            intelligence: co[`${prefix}_ability_intelligence`],
+            luck: co[`${prefix}_ability_luck`],
+        }
+    
+        nc.modifiers = {
+            strength: co[`${prefix}_modifier_strength`],
+            agility: co[`${prefix}_modifier_agility`],
+            stamina: co[`${prefix}_modifier_stamina`],
+            personality: co[`${prefix}_modifier_personality`],
+            intelligence: co[`${prefix}_modifier_intelligence`],
+            luck: co[`${prefix}_modifier_luck`],
+        }
+    
+        nc.saves = {
+            reflex: co[`${prefix}_reflex`],
+            fortitude: co[`${prefix}_fortitude`],
+            will: co[`${prefix}_will`],
+        }
+    
+        nc.other = {
+            speed: co[`${prefix}_speed`],
+            init: co[`${prefix}_init`],
+            hp: co[`${prefix}_hp`],
+            maxHp: co[`${prefix}_hp_max`],
+            ac: co[`${prefix}_ac`],
+        }
+    
+        nc.weapons = [
+            co[`${prefix}_weapon_1`],
+            co[`${prefix}_weapon_2`],
+            co[`${prefix}_weapon_3`]
+        ],
+    
+        nc.equipment = co[`${prefix}_equipment`]
+        nc.notes = co[`${prefix}_notes`],
+        nc.xp = co[`${prefix}_xp`],
+        nc.internalSchema = true
+
+        return nc
+    }
 
     if ("internalSchema" in co) {
         return co
     }
-
-    // new character
-    const nc = {...internalSchema}
 
     nc.details =  {
         name: '',
@@ -240,6 +292,7 @@ const handleFileUpload = (e) => {
 const updateScreen = (characterData) => {
     const maxCharacters = 4
     let generatedHTML = "";
+    numCharacters = 0
     for (let i = 0; i < characterData.length; i++) {
         if (i === maxCharacters) {
             break;
@@ -255,51 +308,76 @@ const updateScreen = (characterData) => {
 
 const importJSONData = (data) => {
 
+    try {
+        data = JSON.parse(data)
+    } catch (e) {
+        // return false;
+    }
+
     const formattedCharacters = data.characters.map(character => formatCharacterData(character))
  
     updateScreen(formattedCharacters)
 }
 
-const getCharacterInfo = (id) => {
-    const SHEET = document.getElementById(id)
-
-    console.log(SHEET)
-}
-
-const handleSave = (e) => {
+function handleSheetSubmit(e) {
     e.preventDefault()
-    console.log(numCharacters)
-
-    for (let i = 0; i < numCharacters; i++) {
-        getCharacterInfo(i)
-
-        break;
+    if (!isFileLoaded) {
+        alert("No sheets to save")
+        return
     }
 
+    const data = new FormData(e.target);
 
+    const formProps = Object.fromEntries(data);
+
+    const formattedData = {
+        characters: []
+    }
+
+    for (let i = 0; i < numCharacters; i++) {
+        formattedData.characters.push(formatCharacterData(formProps, 'form', i))
+    }
+
+    const jsonDataToSave = JSON.stringify(formattedData)
+
+    downloadObjectAsJson(jsonDataToSave, formProps.filename || 'dcc_character_sheet')
 }
 
-function handleSheetSubmit(e, form) {
-    e.preventDefault()
-    const data = new FormData(form);
-    console.log(data)
+function downloadObjectAsJson(exportObj, exportName){
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
+const handleClearSheets = () => {
+    if (!confirm("Delete character sheets? If you would like to save your work choose cancel then use the save button.")) {
+        return
+    }
+
+    CHARACTER_SHEET_CONTAINER.innerHTML = '';
+    numCharacters = 0
+    isFileLoaded = false;
 }
 
 function main() {
     FILE_UPLOAD = document.getElementById("file-upload")
     FILE_UPLOAD.addEventListener("change", handleFileUpload, true);
 
-    var SAVE_BUTTON = document.getElementById("save-button")
-    SAVE_BUTTON.addEventListener("click", handleSave, true);
-
     CHARACTER_SHEET_CONTAINER = document.getElementById("character-sheet-container");
 
-    form = document.getElementById("sheet-0")
+    let form = document.getElementById("character-sheet-container")
     form.addEventListener("submit", (e) => handleSheetSubmit(e, form), true);
+
+    let clearButton = document.getElementById("clear-sheets-button")
+    clearButton.addEventListener("click", handleClearSheets, true);
 
 }
 
 window.addEventListener('load', function () {
     main()
-  })
+})
 

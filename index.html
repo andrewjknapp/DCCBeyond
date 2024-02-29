@@ -14,15 +14,41 @@
 </head>
 <body>
 
-    <input type="file" id="file-upload" name="filename" accept="json">
-    <button id="save-button">Save Sheets</button>
+    <article class="file-controls">
+        <input type="button" id="loadFileXml" value="Upload File" onclick="document.getElementById('file-upload').click();" />
+        <input type="file" id="file-upload" name="filename" accept="json" style="display:none;">
+        <input type="button" id="clear-sheets-button" value="Clear Sheets"/>
+        <section>
+            <input type="text" name="filename" form="character-sheet-container" placeholder="Filename"/>
+            <input type="submit" form="character-sheet-container" value="Save Sheets"/>
+        </section>
+    </article>
 
-    <div id="character-sheet-container"></div>
-<!-- 
-    <form id="sheet-0" onsubmit="">
+    <form id="character-sheet-container"></form>
+
+    <article class="instructions">
+        <h1>DCC Beyond</h1>
+
+        <p>
+            Welcome to DCC Beyond, a character sheet manager for Dungeon Crawl Classics. 
+            <br/>
+            This current version is set up to import a json list of level 0 characters 
+            from the 
+            <a href="https://purplesorcerer.com/create_party.php" target="_blank">Purple Sorcerer level 0 character generator</a>.
+            <br/>
+            Choose JSON List as the Style/Format option. Then upload the file here.
+            <br/>
+            Once you have a file uploaded you can edit any of the fields present. If you would like
+            to save your changes click the Save Sheets button. You can specify a filename for the file. 
+            <br/>
+            For future sessions you can upload the modified file here to pick up where you left off.
+        </p>
+    </article>
+
+    <!-- <form id="sheet-0" onsubmit="">
         <input type="submit">
         <article class="character-sheet">
-            <input type="text" id="character-name-0" class="character-name"/>
+            <input type="text" name="character-name-0" class="character-name"/>
             <input type="text" class="ac"/>
             <input type="text" class="hp"/>
             <input type="text" class="hp-max"/>
@@ -33,19 +59,19 @@
 
             <section class="ability-scores">
                 <input type="text" class="strength-a"/>
-                <input type="text" disabled class="strength-m"/>
+                <input type="text" class="strength-m"/>
 
                 <input type="text" class="agility-a"/>
-                <input type="text" disabled class="agility-m"/>
+                <input type="text" class="agility-m"/>
 
                 <input type="text" class="stamina-a"/>
-                <input type="text" disabled class="stamina-m"/>
+                <input type="text" class="stamina-m"/>
                 
                 <input type="text" class="personality-a"/>
-                <input type="text" disabled class="personality-m"/>
+                <input type="text" class="personality-m"/>
                 
                 <input type="text" class="intelligence-a"/>
-                <input type="text" disabled class="intelligence-m"/>
+                <input type="text" class="intelligence-m"/>
                 
                 <input type="text" class="luck-a"/>
                 <input type="text" class="luck-m"/>
