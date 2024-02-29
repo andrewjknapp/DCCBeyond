@@ -4,6 +4,10 @@ let FILE_UPLOAD;
 let numCharacters = 0
 let isFileLoaded = false;
 
+const timeoutTracker = {}
+
+const diceOptions = [ "d3", "d4", "d5", "d6", "d7", "d8", "d10", "d%", "d12", "d14", "d16", "d20", "d24", "d30" ]
+
 const characterTemplate = (characterObject, id) => {
     return `
         <article id="${id}" class="character-sheet">
@@ -60,6 +64,34 @@ const characterTemplate = (characterObject, id) => {
             </section>
         </article>
     `
+}
+
+const dieTemplate = (die) => {
+    return `
+        <div id="${die}" onclick="handleDieRoll('${die}')" tabindex="-1" style="background: url(./images/${die}.png)">
+            <p id="${die}_result" class="die_result"></p>
+        </div>
+    `
+}
+
+function handleDieRoll(die) {
+
+    if (timeoutTracker[die]) {
+        return
+    }
+
+    let maxNum = die.slice(1);
+
+    if (maxNum === "%") maxNum = "100";
+
+    maxNum = Number(maxNum);
+
+    const rollResult = Math.floor(Math.random() * maxNum) + 1
+
+    timeoutTracker[die] = setTimeout(() => {
+        document.getElementById(`${die}_result`).innerHTML = rollResult
+        timeoutTracker[die] = null
+    }, 1000)
 }
 
 function deleteCharacter(id) {
@@ -394,6 +426,8 @@ function main() {
     let addCharacterButton = document.getElementById("add-character-button")
     addCharacterButton.addEventListener("click", addCharacter, true);
 
+    const diceOptionElement = diceOptions.reduce((accumulator, die) => accumulator += dieTemplate(die), '')
+    document.getElementById("dice-container").innerHTML = diceOptionElement
 }
 
 window.addEventListener('load', function () {

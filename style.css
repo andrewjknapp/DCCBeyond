@@ -3,6 +3,8 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
 }
 
 .character-sheet {
@@ -268,4 +270,55 @@ input[type='file'] {
 
 .instructions p {
     max-width: 700px;
+}
+
+/* Dice */
+
+.dice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 765px;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.dice div {
+    height: 140px;
+    width: 100px;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    cursor: pointer;
+    position: relative;
+} 
+
+.dice div:hover {
+    transition: all 0.5s;
+    padding: 5px 12px 5px 12px;
+    margin: -5px -12px;
+}
+
+.dice div:focus {
+    animation-name: roll;
+    animation-delay: 0.25s;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+} 
+
+.die_result {
+    position: absolute;
+    top: 68px;
+    left: 34px;
+    width: 35px;
+    text-align: center;
+}
+
+@keyframes roll {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+#d3 {
+    background: url(./images/d3.png);
 }
