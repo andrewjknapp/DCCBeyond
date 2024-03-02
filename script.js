@@ -61,6 +61,9 @@ const characterTemplate = (characterObject, id) => {
                 <textarea name="${id}_notes" class="notes">${characterObject.notes}</textarea>
                 <textarea name="${id}_equipment" class="equipment">${characterObject.equipment}</textarea>
                 <input type="text" name="${id}_xp" class="xp" value="${characterObject.xp}"/>
+
+                <img class="character-image" id="${id}_character-image-button" ${characterObject.image ? `src="${characterObject.image}"`: ''} onclick="document.getElementById('${id}_character-image-input').click();"/>
+                <input type="file" id="${id}_character-image-input" data-associated-image="${id}_character-image-button" name="profile-image" accept="json" style="display:none;" onchange="handleCharacterImageUpload(this)">
             </section>
         </article>
     `
@@ -187,6 +190,7 @@ const internalSchema = {
     equipment: '',
     notes: '',
     xp: '',
+    image: '',
     internalSchema: true
 }
 
@@ -209,10 +213,14 @@ const formatCharacterData = (characterObject, source, prefix) => {
     const nc = {...internalSchema}
 
     if (source === 'form') {
+        const alignment = co[`${prefix}_law`]     === "on" ? "L" :
+                          co[`${prefix}_neutral`] === "on" ? "N" :
+                          co[`${prefix}_chaos`]   === "on" ? "C" : ''
+
         nc.details =  {
             name: co[`${prefix}_name`],
             occupation: co[`${prefix}_occupation`],
-            alignment: '', // L, N, C
+            alignment:  alignment, // L, N, C
         }
     
         nc.abilities = {
@@ -257,6 +265,8 @@ const formatCharacterData = (characterObject, source, prefix) => {
         nc.notes = co[`${prefix}_notes`],
         nc.xp = co[`${prefix}_xp`],
         nc.internalSchema = true
+
+        nc.image = getProfileImage(prefix)
 
         return nc
     }
@@ -417,6 +427,8 @@ const handleClearSheets = () => {
         return
     }
 
+
+    FILE_UPLOAD.value = ''
     CHARACTER_SHEET_CONTAINER.innerHTML = '';
     numCharacters = 0
     isFileLoaded = false;
@@ -450,3 +462,19 @@ window.addEventListener('load', function () {
     main()
 })
 
+function handleCharacterImageUpload(e) {
+    if(e.files.length)
+    {
+         const reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+            document.getElementById(e.getAttribute("data-associated-image")).setAttribute("src", event.target.result)
+        });
+        reader.readAsDataURL(e.files[0]);
+    }
+}
+
+function getProfileImage(id) {
+    const profileImg = document.getElementById(`${id}_character-image-button`)
+
+    return profileImg.getAttribute('src')
+}    

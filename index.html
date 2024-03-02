@@ -99,6 +99,9 @@
                 <textarea class="notes"></textarea>
                 <textarea class="equipment"></textarea>
                 <input type="text" class="xp"/>
+
+                <img class="character-image" id="character-image-button" onclick="document.getElementById('character-image-input').click();"/>
+                <input type="file" id="character-image-input" data-associated-image="character-image-button" name="filename" accept="json" style="display:none;" onchange="handleCharacterImageUpload(this)">
             </section>
         </article>
     </form> -->
